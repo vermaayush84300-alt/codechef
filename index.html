@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- makes it mobile friendly -->
+  <title>CodeChef Club Events</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========== NAVIGATION BAR ========== -->
+  <header>
+    <h2 class="logo">&lt;CodeChef/&gt;</h2>
+    <nav>
+      <button onclick="showPage('home')">Home</button>
+      <button onclick="showPage('events')">Events</button>
+      <button onclick="showPage('admin')">Admin</button>
+    </nav>
+  </header>
+
+  <!-- ========== HOME PAGE ========== -->
+  <section id="home" class="page">
+    <div class="hero">
+      <h1>Learn. Build. Connect.</h1>
+      <p>CodeChef is our college tech club. We run hackathons, workshops and talks for every student.</p>
+      <button class="btn" onclick="showPage('events')">Browse Events</button>
+    </div>
+    <h2>⭐ Featured Event</h2>
+    <div id="featured"></div>
+    <h2>Upcoming Events</h2>
+    <div id="upcoming" class="grid"></div>
+  </section>
+
+  <!-- ========== EVENTS PAGE ========== -->
+  <section id="events" class="page hidden">
+    <h2>All Events</h2>
+    <div class="filters">
+      <input id="searchBox" placeholder="Search by event name..." oninput="showEvents()">
+      <select id="categoryBox" onchange="showEvents()">
+        <option>All</option><option>Workshop</option><option>Hackathon</option>
+        <option>Talk</option><option>Cultural</option><option>Sports</option>
+      </select>
+    </div>
+    <div id="eventList" class="grid"></div>
+  </section>
+
+  <!-- ========== ADMIN PAGE ========== -->
+  <section id="admin" class="page hidden">
+    <!-- Login box (shown first) -->
+    <div id="loginBox" class="box">
+      <h2>Admin Login</h2>
+      <input id="password" type="password" placeholder="Password (admin123)">
+      <button class="btn" onclick="adminLogin()">Login</button>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div id="dashboard" class="hidden">
+      <h2>Manage Events</h2>
+      <button class="btn" onclick="openEventForm()">+ Add Event</button>
+      <div class="tablewrap"><table id="eventTable"></table></div>
+
+      <h2>Registered Students</h2>
+      <div class="filters">
+        <input id="regSearch" placeholder="Search name, email, college..." oninput="showRegistrations()">
+        <select id="regFilter" onchange="showRegistrations()"></select>
+      </div>
+      <div class="tablewrap"><table id="regTable"></table></div>
+    </div>
+  </section>
+
+  <!-- ========== REGISTRATION POPUP ========== -->
+  <div id="registerModal" class="modal hidden">
+    <div class="modalbox">
+      <h3 id="registerTitle"></h3>
+      <input id="rName" placeholder="Full name">
+      <input id="rEmail" placeholder="Email">
+      <input id="rCollegeEmail" placeholder="College email">
+      <input id="rCollege" placeholder="College">
+      <select id="rYear"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select>
+      <input id="rPhone" placeholder="Phone number">
+      <input id="rLinkedin" placeholder="LinkedIn link (optional)">
+      <p id="registerError" class="error"></p>
+      <button class="btn" onclick="submitRegistration()">Submit</button>
+      <button class="btn grey" onclick="closeModals()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- ========== ADD / EDIT EVENT POPUP ========== -->
+  <div id="eventModal" class="modal hidden">
+    <div class="modalbox">
+      <h3 id="formTitle">Add Event</h3>
+      <input id="eName" placeholder="Event name">
+      <input id="eDate" type="date">
+      <input id="eTime" type="time">
+      <input id="eVenue" placeholder="Venue">
+      <select id="eCategory"><option>Workshop</option><option>Hackathon</option><option>Talk</option><option>Cultural</option><option>Sports</option></select>
+      <textarea id="eDesc" placeholder="Description"></textarea>
+      <label><input id="eFeatured" type="checkbox"> Featured event</label>
+      <p id="eventError" class="error"></p>
+      <button class="btn" onclick="saveEvent()">Save</button>
+      <button class="btn grey" onclick="closeModals()">Cancel</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
